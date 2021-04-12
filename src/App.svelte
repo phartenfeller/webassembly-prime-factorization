@@ -3,6 +3,11 @@
   const PROCESSING = 1;
   const FINISHED = 2;
 
+  const JS = 0;
+  const AS = 1;
+
+  import primeFactorization from './loadAssembllyScript';
+
   const worker = new Worker('/primeFactorizationWorker.js');
 
   let state = IDLE;
@@ -12,12 +17,25 @@
   let startTime;
   let seconds = null;
 
+  let radioGroup = JS;
+  const handleRadioChange = (e) => {
+    radioGroup = e.target.value;
+    console.log(radioGroup);
+  };
+
   const handleClick = () => {
     state = PROCESSING;
     result = null;
     showInput = input;
     startTime = new Date().getTime();
-    worker.postMessage(input);
+    if (radioGroup === JS) {
+      worker.postMessage(input);
+    } else {
+      result = primeFactorization(input);
+      state = FINISHED;
+      let endTime = new Date().getTime();
+      seconds = ((endTime - startTime) / 1000).toFixed(4);
+    }
   };
 
   worker.addEventListener(
@@ -34,6 +52,31 @@
 
 <main class="mx-16 mt-6">
   <h1 class="text-4xl text-indigo-500 mb-4">Prime Factorization</h1>
+  <div class="my-6">
+    <label for="js">
+      <input
+        type="radio"
+        checked={radioGroup === JS}
+        id="js"
+        name="drone"
+        value={JS}
+        on:change={handleRadioChange}
+      />
+      JavaScript
+    </label>
+
+    <label for="as">
+      <input
+        type="radio"
+        checked={radioGroup === AS}
+        id="as"
+        name="drone"
+        value={AS}
+        on:change={handleRadioChange}
+      />
+      AssemblyScript
+    </label>
+  </div>
   <input
     bind:value={input}
     type="number"

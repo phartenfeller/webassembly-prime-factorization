@@ -1,3 +1,7 @@
+<script context="module">
+  import primeFactorization from './loadAssembllyScript';
+</script>
+
 <script>
   const IDLE = 0;
   const PROCESSING = 1;
@@ -5,8 +9,6 @@
 
   const JS = 0;
   const AS = 1;
-
-  import primeFactorization from './loadAssembllyScript';
 
   const worker = new Worker('/primeFactorizationWorker.js');
 
@@ -36,6 +38,11 @@
       let endTime = new Date().getTime();
       seconds = ((endTime - startTime) / 1000).toFixed(4);
     }
+  };
+
+  const handleTestValueClick = (e) => {
+    const val = parseInt(e.target.innerHTML);
+    input = val;
   };
 
   worker.addEventListener(
@@ -88,6 +95,12 @@
     class="bg-indigo-500 rounded px-3 py-2 text-gray-100 hover:bg-indigo-300 focus:outline-none focus:ring focus:ring-indigo-200 disabled:bg-gray-400 disabled:cursor-not-allowed"
     on:click={handleClick}>Calc</button
   >
+  <div>
+    Test values:
+    <button on:click={handleTestValueClick} class="underline text-blueGray-700"
+      >37778193</button
+    >
+  </div>
   <div class="mt-4 text-lg">
     {#if state === FINISHED}
       <p class="font-semibold ">

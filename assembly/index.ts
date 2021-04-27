@@ -7,16 +7,17 @@ function isPrime(num: i32): bool {
   return true;
 }
 
-export function primeFactorization(num: i32): Array<i32> {
-  const primeArr = new Array<i32>(64);
+export function primeFactorization(num: i32): Int32Array {
+  const primeArr = new Int32Array(64);
+  let arrayI: i32 = 0;
 
   for (let i = 2; i < num; i++) {
     while (isPrime(i) && num % i == 0) {
-      console.log(`Found next prime ${i}`);
-      primeArr.push(i);
+      primeArr[arrayI] = i;
+      arrayI++;
       num /= i;
     }
   }
-  if (num > 1) primeArr.push(num);
+  if (num > 1) primeArr[arrayI] = num;
   return primeArr;
 }

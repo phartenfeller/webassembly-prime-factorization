@@ -8,7 +8,7 @@ function isPrime(num: i32): bool {
 }
 
 export function primeFactorization(num: i32): Int32Array {
-  const primeArr = new Int32Array(64);
+  const primeArr = new Int32Array(10);
   let arrayI: i32 = 0;
 
   for (let i = 2; i < num; i++) {

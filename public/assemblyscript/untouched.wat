@@ -2842,7 +2842,7 @@
   i32.store
   global.get $~lib/memory/__stack_pointer
   i32.const 0
-  i32.const 64
+  i32.const 10
   call $~lib/typedarray/Int32Array#constructor
   local.tee $1
   i32.store

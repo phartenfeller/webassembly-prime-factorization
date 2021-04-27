@@ -7,8 +7,8 @@
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "lint": "eslint src",
-    "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime --sourceMap",
-    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime --sourceMap",
+    "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
+    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests"
   },

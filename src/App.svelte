@@ -21,7 +21,7 @@
 
   let radioGroup = JS;
   const handleRadioChange = (e) => {
-    radioGroup = e.target.value;
+    radioGroup = parseInt(e.target.value);
     console.log(radioGroup);
   };
 
@@ -30,13 +30,17 @@
     result = null;
     showInput = input;
     startTime = new Date().getTime();
+    console.log(radioGroup === JS, radioGroup, JS);
     if (radioGroup === JS) {
+      console.log('Calc with JS');
       worker.postMessage(input);
     } else {
-      result = primeFactorization(input);
+      console.log('Calc with AssemblyScript');
+      const temp = primeFactorization(input);
       state = FINISHED;
       let endTime = new Date().getTime();
       seconds = ((endTime - startTime) / 1000).toFixed(4);
+      result = temp.filter(n => n !== 0);
     }
   };
 

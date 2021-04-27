@@ -2040,13 +2040,13 @@
   i32.const 0
   i32.store offset=8
   global.get $~lib/memory/__stack_pointer
-  i32.const 256
+  i32.const 40
   i32.const 0
   call $~lib/rt/itcms/__new
   local.tee $2
   i32.store offset=4
   local.get $2
-  i32.const 256
+  i32.const 40
   call $~lib/memory/memory.fill
   local.get $1
   local.get $2
@@ -2055,7 +2055,7 @@
   local.get $2
   i32.store offset=4
   local.get $1
-  i32.const 256
+  i32.const 40
   i32.store offset=8
   global.get $~lib/memory/__stack_pointer
   i32.const 8

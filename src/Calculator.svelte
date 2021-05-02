@@ -6,8 +6,9 @@
 <script>
   import RADIO from './constants/radioGroup'
   import PROCESS_STATE from './constants/processState'
-
+  
   export let radioValue;
+  import runGo from './loadGo'
 
   const worker = new Worker('/primeFactorizationWorker.js');
 
@@ -18,22 +19,35 @@
   let startTime;
   let seconds = null;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     state = PROCESS_STATE.PROCESSING;
     result = null;
     showInput = input;
     startTime = new Date().getTime();
-    console.log(radioValue)
-    if (radioValue === RADIO.JS) {
-      console.log('Calc with JS');
-      worker.postMessage(input);
-    } else {
-      console.log('Calc with AssemblyScript');
-      const temp = primeFactorization(input);
-      state = PROCESS_STATE.FINISHED;
-      let endTime = new Date().getTime();
-      seconds = ((endTime - startTime) / 1000).toFixed(4);
-      result = temp.filter(n => n !== 0);
+    switch (radioValue) {
+      case RADIO.JS:
+        console.log('Calc with JS');
+        worker.postMessage(input);
+        break;
+      case RADIO.AS:
+        console.log('Calc with AssemblyScript');
+        const temp = primeFactorization(input);
+        let endTime = new Date().getTime();
+        state = PROCESS_STATE.FINISHED;
+        seconds = ((endTime - startTime) / 1000).toFixed(4);
+        result = temp.filter(n => n !== 0);
+        break;
+      case RADIO.GO:
+        console.log('Calc with Go');
+        const goTemp = await runGo(input);
+        let goEndTime = new Date().getTime();
+        state = PROCESS_STATE.FINISHED;
+        seconds = ((goEndTime - startTime) / 1000).toFixed(4);
+        result = goTemp.filter(n => n !== 0);
+        break;
+      default:
+        console.error('Unhandeled case for', radioValue);
+        state = PROCESS_STATE.FINISHED;
     }
   };
 

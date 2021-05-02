@@ -36,6 +36,18 @@
       />
       AssemblyScript
     </label>
+
+    <label for="go">
+      <input
+        type="radio"
+        checked={radioGroup === RADIO.GO}
+        id="go"
+        name="drone"
+        value={RADIO.GO}
+        on:change={handleRadioChange}
+      />
+      Go
+    </label>
   </div>
   <Calculator radioValue={radioGroup} />
 </main>

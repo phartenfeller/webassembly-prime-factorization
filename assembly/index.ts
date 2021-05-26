@@ -1,5 +1,3 @@
-// The entry file of your WebAssembly module.
-
 function isPrime(num: i32): bool {
   for (let i = 2; i <= Math.sqrt(num); i++) {
     if (num % i == 0) return false;

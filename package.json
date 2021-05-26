@@ -10,7 +10,8 @@
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
     "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
-    "test": "node tests"
+    "test": "node tests",
+    "gh-publish": "node ./gh-pages.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -22,6 +23,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-svelte3": "^3.2.0",
+    "gh-pages": "^3.1.0",
     "postcss": "^8.2.13",
     "postcss-load-config": "^3.0.1",
     "rollup": "^2.45.2",

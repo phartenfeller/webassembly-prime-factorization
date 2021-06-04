@@ -1,9 +1,17 @@
 let _res;
 
 const init = async () => {
+  console.log('yeahsaf ');
   const go = new Go();
   _res = await WebAssembly.instantiateStreaming(
     fetch('go/go-prime.wasm'),
+    go.importObject
+  );
+  go.run(_res.instance);
+
+  _res = null;
+  _res = await WebAssembly.instantiateStreaming(
+    fetch('go/go-add.wasm'),
     go.importObject
   );
   go.run(_res.instance);

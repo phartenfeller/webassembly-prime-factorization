@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"math"
+	"syscall/js"
 )
 
 func getSquareRoot(num uint32) uint32 {
@@ -13,19 +13,19 @@ func getSquareRoot(num uint32) uint32 {
 
 func isPrime(num uint32) bool {
 	for i := uint32(2); i < getSquareRoot(num); i++ {
-		if num % i == 0 {
+		if num%i == 0 {
 			return false
 		}
 	}
 	return true
 }
 
-func primeFactorization(num uint32) {
-	var arr[10]uint32
+func getPrimes(num uint32) []interface{} {
+	arr := make([]interface{}, 10)
 	arrayI := 0
 
 	for i := uint32(2); i < num; i++ {
-		for isPrime(i) && num % i == 0 {
+		for isPrime(i) && num%i == 0 {
 			arr[arrayI] = i
 			arrayI++
 			num = num / i
@@ -36,9 +36,15 @@ func primeFactorization(num uint32) {
 		arr[arrayI] = num
 	}
 
-	fmt.Println("Result", arr)
+	return arr
+}
+
+func primeFactorization(this js.Value, inputs []js.Value) interface{} {
+	x := inputs[0].Int()
+	return getPrimes(uint32(x))
 }
 
 func main() {
-	primeFactorization(67778195)
+	js.Global().Set("primeFactorization", js.FuncOf(primeFactorization))
+	select {}
 }

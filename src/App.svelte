@@ -1,7 +1,7 @@
 <script>
-  import Calculator from './Calculator.svelte'
+  import Calculator from './Calculator.svelte';
 
-  import RADIO from './constants/radioGroup'
+  import RADIO from './constants/radioGroup';
 
   let radioGroup = RADIO.JS;
   const handleRadioChange = (e) => {

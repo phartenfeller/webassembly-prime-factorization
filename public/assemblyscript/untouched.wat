@@ -2,8 +2,8 @@
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
- (type $none_=>_none (func))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $none_=>_none (func))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
@@ -41,6 +41,7 @@
  (data (i32.const 652) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
  (data (i32.const 720) "\04\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\01\t\00\00\02\00\00\00")
  (table $0 1 funcref)
+ (elem $0 (i32.const 1))
  (export "primeFactorization" (func $assembly/index/primeFactorization))
  (export "__new" (func $~lib/rt/itcms/__new))
  (export "__pin" (func $~lib/rt/itcms/__pin))
@@ -1519,7 +1520,6 @@
  )
  (func $~lib/rt/itcms/interrupt
   (local $0 i32)
-  (local $1 i32)
   i32.const 0
   drop
   i32.const 0
@@ -1530,7 +1530,7 @@
   i32.const 100
   i32.div_u
   local.set $0
-  loop $do-continue|0
+  loop $do-loop|0
    local.get $0
    call $~lib/rt/itcms/step
    i32.sub
@@ -1558,9 +1558,7 @@
    local.get $0
    i32.const 0
    i32.gt_s
-   local.set $1
-   local.get $1
-   br_if $do-continue|0
+   br_if $do-loop|0
   end
   i32.const 0
   drop
@@ -1600,12 +1598,12 @@
  (func $~lib/rt/tlsf/prepareSize (param $0 i32) (result i32)
   local.get $0
   i32.const 1073741820
-  i32.ge_u
+  i32.gt_u
   if
    i32.const 144
    i32.const 480
    i32.const 458
-   i32.const 30
+   i32.const 29
    call $~lib/builtins/abort
    unreachable
   end
@@ -2487,7 +2485,7 @@
   if
    i32.const 336
    i32.const 544
-   i32.const 710
+   i32.const 741
    i32.const 64
    call $~lib/builtins/abort
    unreachable
@@ -2616,11 +2614,6 @@
   i32.const 0
   drop
   i32.const 0
-  if (result i32)
-   i32.const 1
-  else
-   i32.const 0
-  end
   drop
  )
  (func $~lib/rt/__visit_globals (param $0 i32)

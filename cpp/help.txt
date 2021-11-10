@@ -1,0 +1,3 @@
+- https://medium.com/@tdeniffel/pragmatic-compiling-from-c-to-webassembly-a-guide-a496cc5954b8
+- https://becominghuman.ai/passing-and-returning-webassembly-array-parameters-a0f572c65d97
+- https://hub.docker.com/r/emscripten/emsdk

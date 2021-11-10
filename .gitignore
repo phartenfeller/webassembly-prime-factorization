@@ -1,4 +1,6 @@
 /node_modules/
 /public/build/
 
+/cpp/build
+
 .DS_Store

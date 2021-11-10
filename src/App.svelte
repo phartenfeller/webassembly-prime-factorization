@@ -48,6 +48,18 @@
       />
       Go
     </label>
+
+    <label for="cpp">
+      <input
+        type="radio"
+        checked={radioGroup === RADIO.CPP}
+        id="cpp"
+        name="drone"
+        value={RADIO.CPP}
+        on:change={handleRadioChange}
+      />
+      C++
+    </label>
   </div>
   <Calculator radioValue={radioGroup} />
 </main>

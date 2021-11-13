@@ -25,7 +25,7 @@ func getPrimes(num uint32) []interface{} {
 	arrayI := 0
 
 	for i := uint32(2); i < num; i++ {
-		for isPrime(i) && num%i == 0 {
+		for num%i == 0 && isPrime(i) {
 			arr[arrayI] = i
 			arrayI++
 			num = num / i

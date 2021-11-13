@@ -1352,7 +1352,7 @@ function preMain() {
 function exitRuntime() {
   checkStackCookie();
   callRuntimeCallbacks(__ATEXIT__);
-  flush_NO_FILESYSTEM()
+  
   runtimeExited = true;
 }
 
@@ -1856,15 +1856,6 @@ var ASM_CONSTS = {
     }
   Module["stackTrace"] = stackTrace;
 
-  function flush_NO_FILESYSTEM() {
-      // flush anything remaining in the buffers during shutdown
-      if (typeof _fflush !== 'undefined') _fflush(0);
-      var buffers = SYSCALLS.buffers;
-      if (buffers[1].length) SYSCALLS.printChar(1, 10);
-      if (buffers[2].length) SYSCALLS.printChar(2, 10);
-    }
-  Module["flush_NO_FILESYSTEM"] = flush_NO_FILESYSTEM;
-  
   var SYSCALLS = {mappings:{},buffers:[null,[],[]],printChar:function(stream, curr) {
         var buffer = SYSCALLS.buffers[stream];
         assert(buffer);
@@ -1888,24 +1879,6 @@ var ASM_CONSTS = {
         return low;
       }};
   Module["SYSCALLS"] = SYSCALLS;
-  function _fd_write(fd, iov, iovcnt, pnum) {
-      ;
-      // hack to support printf in SYSCALLS_REQUIRE_FILESYSTEM=0
-      var num = 0;
-      for (var i = 0; i < iovcnt; i++) {
-        var ptr = HEAP32[((iov)>>2)];
-        var len = HEAP32[(((iov)+(4))>>2)];
-        iov += 8;
-        for (var j = 0; j < len; j++) {
-          SYSCALLS.printChar(fd, HEAPU8[ptr+j]);
-        }
-        num += len;
-      }
-      HEAP32[((pnum)>>2)] = num
-      return 0;
-    }
-  Module["_fd_write"] = _fd_write;
-
   function _proc_exit(code) {
       procExit(code);
     }
@@ -1940,12 +1913,11 @@ function intArrayToString(array) {
 
 
 var asmLibraryArg = {
-  "fd_write": _fd_write,
   "proc_exit": _proc_exit
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
-var __Z5primei = Module["__Z5primei"] = createExportWrapper("_Z5primei");
+var __Z5primej = Module["__Z5primej"] = createExportWrapper("_Z5primej");
 
 /** @type {function(...*):?} */
 var __start = Module["__start"] = createExportWrapper("_start");

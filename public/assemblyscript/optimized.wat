@@ -1733,16 +1733,16 @@
   i32.const 40
   i32.const 0
   call $~lib/rt/itcms/__new
-  local.tee $2
+  local.tee $4
   i32.store offset=4
-  local.get $2
+  local.get $4
   i32.const 40
   call $~lib/memory/memory.fill
   local.get $1
-  local.get $2
+  local.get $4
   call $~lib/arraybuffer/ArrayBufferView#set:buffer
   local.get $1
-  local.get $2
+  local.get $4
   i32.store offset=4
   local.get $1
   i32.const 40
@@ -1767,50 +1767,49 @@
    i32.gt_s
    if
     loop $while-continue|1
-     block $__inlined_func$assembly/index/isPrime (result i32)
-      i32.const 2
-      local.set $3
-      loop $for-loop|00
-       local.get $2
-       f64.convert_i32_s
-       f64.sqrt
-       local.get $3
-       f64.convert_i32_s
-       f64.ge
-       if
-        i32.const 0
-        local.get $2
-        local.get $3
-        i32.rem_s
-        i32.eqz
-        br_if $__inlined_func$assembly/index/isPrime
-        drop
-        local.get $3
-        i32.const 1
-        i32.add
-        local.set $3
-        br $for-loop|00
-       end
-      end
-      i32.const 1
-     end
+     local.get $0
+     local.get $2
+     i32.rem_s
      if (result i32)
-      local.get $0
-      local.get $2
-      i32.rem_s
+      i32.const 0
      else
-      i32.const 1
+      block $__inlined_func$assembly/index/isPrime (result i32)
+       i32.const 2
+       local.set $3
+       loop $for-loop|00
+        local.get $2
+        f64.convert_i32_s
+        f64.sqrt
+        local.get $3
+        f64.convert_i32_s
+        f64.ge
+        if
+         i32.const 0
+         local.get $2
+         local.get $3
+         i32.rem_s
+         i32.eqz
+         br_if $__inlined_func$assembly/index/isPrime
+         drop
+         local.get $3
+         i32.const 1
+         i32.add
+         local.set $3
+         br $for-loop|00
+        end
+       end
+       i32.const 1
+      end
      end
-     i32.eqz
      if
       local.get $1
-      local.get $4
+      local.get $5
       local.get $2
       call $~lib/typedarray/Int32Array#__set
-      local.get $4
+      local.get $5
       i32.const 1
       i32.add
-      local.set $4
+      local.set $5
       local.get $0
       local.get $2
       i32.div_s
@@ -1830,7 +1829,7 @@
   i32.gt_s
   if
    local.get $1
-   local.get $4
+   local.get $5
    local.get $0
    call $~lib/typedarray/Int32Array#__set
   end

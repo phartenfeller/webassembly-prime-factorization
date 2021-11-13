@@ -2851,14 +2851,14 @@
    local.get $4
    if
     loop $while-continue|1
+     local.get $0
      local.get $3
-     call $assembly/index/isPrime
+     i32.rem_s
+     i32.const 0
+     i32.eq
      if (result i32)
-      local.get $0
       local.get $3
-      i32.rem_s
-      i32.const 0
-      i32.eq
+      call $assembly/index/isPrime
      else
       i32.const 0
      end

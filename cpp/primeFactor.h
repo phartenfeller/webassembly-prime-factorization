@@ -5,6 +5,6 @@
 #define PRIME
 
 EMSCRIPTEN_KEEPALIVE
-int8_t* prime(int x);
+uint32_t* prime(unsigned int x);
 
 #endif

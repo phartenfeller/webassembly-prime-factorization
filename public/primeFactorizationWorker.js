@@ -9,7 +9,7 @@ function primeFactorization(num) {
   const primeArr = [];
 
   for (let i = 2; i < num; i++) {
-    while (isPrime(i) && num % i === 0) {
+    while (num % i === 0 && isPrime(i)) {
       // console.log(`Found next prime ${i}`);
       primeArr.push(i);
       num /= i;

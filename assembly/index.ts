@@ -10,7 +10,7 @@ export function primeFactorization(num: i32): Int32Array {
   let arrayI: i32 = 0;
 
   for (let i = 2; i < num; i++) {
-    while (isPrime(i) && num % i == 0) {
+    while (num % i == 0 && isPrime(i)) {
       primeArr[arrayI] = i;
       arrayI++;
       num /= i;

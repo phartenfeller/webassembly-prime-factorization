@@ -4,6 +4,12 @@
 </script>
 
 <script>
+  import AvgResult from './AvgResult.svelte';
+
+  import { addResult, numInput } from './stores/results.js';
+
+  import { startTimer, endTimer } from './util/timer.js';
+
   import RADIO from './constants/radioGroup';
   import PROCESS_STATE from './constants/processState';
 
@@ -14,45 +20,47 @@
   const worker = new Worker('/primeFactorizationWorker.js');
 
   let state = PROCESS_STATE.IDLE;
-  let input = 100;
   let result = null;
   let showInput = null;
-  let startTime;
   let seconds = null;
+
+  const setSeconds = () => {
+    addResult($numInput, radioValue, seconds);
+  };
 
   const handleClick = async () => {
     state = PROCESS_STATE.PROCESSING;
     result = null;
-    showInput = input;
-    startTime = new Date().getTime();
+    showInput = $numInput;
+    startTimer();
     switch (radioValue) {
       case RADIO.JS:
         console.log('Calc with JS');
-        worker.postMessage(input);
+        worker.postMessage($numInput);
         break;
       case RADIO.AS:
         console.log('Calc with AssemblyScript');
-        const temp = primeFactorization(input);
-        let endTime = new Date().getTime();
+        const temp = primeFactorization($numInput);
         state = PROCESS_STATE.FINISHED;
-        seconds = ((endTime - startTime) / 1000).toFixed(4);
+        seconds = endTimer();
         result = temp.filter((n) => n !== 0);
+        setSeconds();
         break;
       case RADIO.GO:
         console.log('Calc with Go');
-        const goTemp = await runGo(input);
-        let goEndTime = new Date().getTime();
+        const goTemp = runGo($numInput);
         state = PROCESS_STATE.FINISHED;
-        seconds = ((goEndTime - startTime) / 1000).toFixed(4);
+        seconds = endTimer();
         result = goTemp.filter((n) => n);
+        setSeconds();
         break;
       case RADIO.CPP:
         console.log('Calc with C++');
-        const cppTemp = runCpp(input);
-        let cppEndTime = new Date().getTime();
+        const cppTemp = runCpp($numInput);
         state = PROCESS_STATE.FINISHED;
-        seconds = ((cppEndTime - startTime) / 1000).toFixed(4);
+        seconds = endTimer();
         result = cppTemp.filter((n) => n);
+        setSeconds();
         break;
       default:
         console.error('Unhandeled case for', radioValue);
@@ -62,23 +70,23 @@
 
   const handleTestValueClick = (e) => {
     const val = parseInt(e.target.innerHTML);
-    input = val;
+    $numInput = val;
   };
 
   worker.addEventListener(
     'message',
     (e) => {
-      let endTime = new Date().getTime();
       state = PROCESS_STATE.FINISHED;
       result = e.data;
-      seconds = ((endTime - startTime) / 1000).toFixed(4);
+      seconds = endTimer();
+      setSeconds();
     },
     false
   );
 </script>
 
 <input
-  bind:value={input}
+  bind:value={$numInput}
   type="number"
   class="bg-gray-100 rounded p-2 mr-3 focus:ring focus:ring-indigo-400 focus:outline-none"
 />
@@ -99,14 +107,21 @@
   >
 </div>
 <div class="mt-4 text-lg">
-  {#if state === PROCESS_STATE.FINISHED}
-    <p class="font-semibold ">
-      Result for {showInput} is: {result.join(', ')}.
-    </p>
-    <p>Calculation took {seconds} seconds.</p>
-  {:else if state === PROCESS_STATE.PROCESSING}
-    <p>Calculating...</p>
-  {:else if state === PROCESS_STATE.IDLE}
-    <p>Press button to start calc</p>
-  {/if}
+  <div class="h-20">
+    {#if state === PROCESS_STATE.FINISHED}
+      <p class="font-semibold ">
+        Result for {showInput} is: {result.join(', ')}.
+      </p>
+      <p>Calculation took {seconds} seconds.</p>
+    {:else if state === PROCESS_STATE.PROCESSING}
+      <p>Calculating...</p>
+    {:else if state === PROCESS_STATE.IDLE}
+      <p>Press button to start calc</p>
+    {/if}
+  </div>
+</div>
+
+<div class="mt-16">
+  <h2 class="font-medium text-gray-600 text-2xl">Average Times</h2>
+  <AvgResult />
 </div>

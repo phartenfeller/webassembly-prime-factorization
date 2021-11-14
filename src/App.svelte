@@ -10,7 +10,7 @@
   };
 </script>
 
-<main class="mx-16 mt-6">
+<main class="mx-16 mt-6 subpixel-antialiased">
   <h1 class="text-4xl text-indigo-500 mb-4">Prime Factorization</h1>
   <div class="my-6">
     <label for="js">

@@ -11,9 +11,9 @@
     "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests",
-    "gh-publish": "npm run copy-html:gh && npm run build && node ./gh-pages.js && npm run copy-html:dev",
-    "copy-html:gh": "BASE_PATH=/webassembly-prime-factorization node copyHtml.js",
-    "copy-html:dev": "node copyHtml.js"
+    "gh-publish": "npm run copy-html:gh && npm run build && sleep 5 && node ./gh-pages.js && sleep 5 && npm run copy-html:dev",
+    "copy-html:gh": "MODE_GH=1 node copyHtml.js",
+    "copy-html:dev": "MODE_GH=0 node copyHtml.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",

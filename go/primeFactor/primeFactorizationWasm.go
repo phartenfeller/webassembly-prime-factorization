@@ -12,7 +12,8 @@ func getSquareRoot(num uint32) uint32 {
 }
 
 func isPrime(num uint32) bool {
-	for i := uint32(2); i < getSquareRoot(num); i++ {
+	sqrtNum := getSquareRoot(num)
+	for i := uint32(2); i < sqrtNum; i++ {
 		if num%i == 0 {
 			return false
 		}

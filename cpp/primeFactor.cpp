@@ -4,7 +4,8 @@
 const unsigned int arrLen  = 10;
 
 bool isPrime(unsigned int num) {
-    for (unsigned int i = 2; i < sqrt(num); i++) {
+    const unsigned int sqrtNum = sqrt(num);
+    for (int i = 2; i < sqrtNum; i++) {
         if (num%i == 0) {
             return false;
         }
@@ -14,10 +15,10 @@ bool isPrime(unsigned int num) {
 
 uint32_t* prime(unsigned int x) {
     unsigned int num = x;
-    uint32_t primeArr[arrLen];
+    uint32_t primeArr[arrLen] = {0};
     unsigned int arrayI = 0;
 
-    for (unsigned int i=2; i<x; i++) {
+    for (int i=2; i<x; i++) {
         while (num % i == 0 && isPrime(i)) {
             primeArr[arrayI] = i;
             arrayI++;
@@ -29,12 +30,11 @@ uint32_t* prime(unsigned int x) {
         primeArr[arrayI] = num;
     }
 
-    // fill the rest of the array with 0's
-    while (arrayI < arrLen) {
-        primeArr[arrayI] = 0;
-        arrayI++;
-    }
-
     auto arrayPtr = &primeArr[0];
     return arrayPtr;
+}
+
+
+int main() {
+  return 0;
 }

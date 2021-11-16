@@ -1678,6 +1678,7 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
+  (local $6 f64)
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.sub
@@ -1774,12 +1775,14 @@
       i32.const 0
      else
       block $__inlined_func$assembly/index/isPrime (result i32)
+       local.get $2
+       f64.convert_i32_s
+       f64.sqrt
+       local.set $6
        i32.const 2
        local.set $3
        loop $for-loop|00
-        local.get $2
-        f64.convert_i32_s
-        f64.sqrt
+        local.get $6
         local.get $3
         f64.convert_i32_s
         f64.ge

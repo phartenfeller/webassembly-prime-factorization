@@ -2440,25 +2440,27 @@
   i32.store offset=8
  )
  (func $assembly/index/isPrime (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 f64)
+  (local $1 f64)
+  (local $2 i32)
   (local $3 i32)
-  i32.const 2
+  local.get $0
+  f64.convert_i32_s
   local.set $1
+  local.get $1
+  f64.sqrt
+  local.set $1
+  i32.const 2
+  local.set $2
   loop $for-loop|0
-   local.get $1
-   f64.convert_i32_s
-   local.get $0
-   f64.convert_i32_s
-   local.set $2
    local.get $2
-   f64.sqrt
+   f64.convert_i32_s
+   local.get $1
    f64.le
    local.set $3
    local.get $3
    if
     local.get $0
-    local.get $1
+    local.get $2
     i32.rem_s
     i32.const 0
     i32.eq
@@ -2466,10 +2468,10 @@
      i32.const 0
      return
     end
-    local.get $1
+    local.get $2
     i32.const 1
     i32.add
-    local.set $1
+    local.set $2
     br $for-loop|0
    end
   end

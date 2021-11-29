@@ -3,6 +3,7 @@ function sortData(data) {
   const sorted = entries.sort((a, b) => {
     const aSurname = a.split('#')[1];
     const bSurname = b.split('#')[1];
+
     if (aSurname < bSurname) {
       return -1;
     } else if (aSurname > bSurname) {

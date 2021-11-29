@@ -4,6 +4,7 @@
   import AppHeader from './AppHeader.svelte';
   import routeStore from './stores/routeStore';
   import ROUTES from './constants/routes';
+  import LetterCount from './LetterCount.svelte';
 
   const routes = Object.values(ROUTES).filter((val) => val !== ROUTES.home);
 
@@ -56,6 +57,8 @@
       <Prime />
     {:else if route === ROUTES.stringSort}
       <StringSort />
+    {:else if route === ROUTES.letterCount}
+      <LetterCount />
     {:else}
       <div class="text-red-500 text-2xl">Unknown route...</div>
     {/if}

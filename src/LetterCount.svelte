@@ -1,5 +1,5 @@
 <script context="module">
-  import { sortDataAs } from './loadAssemblyScript';
+  import { letterCountStrAs } from './loadAssemblyScript';
 </script>
 
 <script>
@@ -20,11 +20,15 @@
     .then((data) => {
       longString = data.value;
 
+      for (let i = 0; i < 8; i++) {
+        longString += longString;
+      }
+
       ready = true;
       console.log(longString);
     });
 
-  const worker = new Worker('/stringSortWorker.js');
+  const worker = new Worker('/letterCountWorker.js');
 
   const handleRadioChange = (e) => {
     radioGroup = parseInt(e.target.value);
@@ -40,7 +44,7 @@
     startTimer();
 
     if (radioGroup === JS) {
-      worker.postMessage(longString);
+      worker.postMessage({ str: longString, letter: 'e' });
       worker.onmessage = (e) => {
         seconds = endTimer();
         console.log(`worker took ${seconds}s`);
@@ -48,7 +52,7 @@
         //console.log(e.data);
       };
     } else {
-      result = sortDataAs(longString);
+      result = letterCountStrAs(longString, 'e');
       seconds = endTimer();
     }
   }
@@ -104,15 +108,8 @@
     <div>
       Took {seconds}s
     </div>
-    <div
-      class="text-xs max-w-7xl overflow-x-scroll px-3 bg-gray-100 shadow-inner mt-4"
-    >
-      <pre>
-    <details class="whitespace-normal">
-      <summary>Output</summary>
-      {result}
-    </details>
-  </pre>
+    <div>
+      {result} occurences of 'e'
     </div>
   {/if}
 </div>

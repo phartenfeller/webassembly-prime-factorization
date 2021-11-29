@@ -1,5 +1,5 @@
 <script context="module">
-  import primeFactorization from './loadAssemblyScript';
+  import { primeFactorization } from './loadAssemblyScript';
   // import './loadCpp';
 </script>
 

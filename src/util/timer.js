@@ -1,10 +1,10 @@
 let startTime = null;
 
 export function startTimer() {
-  startTime = new Date().getTime();
+  startTime = performance.now();
 }
 
 export function endTimer() {
-  const endTime = new Date().getTime();
+  const endTime = performance.now();
   return ((endTime - startTime) / 1000).toFixed(4);
 }

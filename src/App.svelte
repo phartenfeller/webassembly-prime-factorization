@@ -1,5 +1,6 @@
 <script>
   import Prime from './Prime.svelte';
+  import StringSort from './StringSort.svelte';
   import AppHeader from './AppHeader.svelte';
   import routeStore from './stores/routeStore';
   import ROUTES from './constants/routes';
@@ -53,6 +54,8 @@
       </div>
     {:else if route === ROUTES.prime}
       <Prime />
+    {:else if route === ROUTES.stringSort}
+      <StringSort />
     {:else}
       <div class="text-red-500 text-2xl">Unknown route...</div>
     {/if}

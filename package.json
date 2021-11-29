@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "dev": "rollup -c -w --port 5555",
+    "start": "sirv public --no-clear --port 5555",
     "lint": "eslint src",
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
     "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",

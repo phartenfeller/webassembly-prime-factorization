@@ -10,6 +10,7 @@
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32)))
+ (type $i32_=>_f32 (func (param i32) (result f32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "index" "logStr" (func $assembly/index/logStr (param i32)))
  (global $assembly/index/StringArray_ID i32 (i32.const 3))
@@ -88,6 +89,7 @@
  (export "memory" (memory $0))
  (export "sortData" (func $export:assembly/index/sortData))
  (export "letterCountStr" (func $export:assembly/index/letterCountStr))
+ (export "getAvgValue" (func $export:assembly/index/getAvgValue))
  (start $~start)
  (func $~lib/rt/itcms/initLazy (param $0 i32) (result i32)
   local.get $0
@@ -4160,6 +4162,70 @@
   i32.store
   local.get $0
   call $assembly/index/letterCountStr
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+ )
+ (func $export:assembly/index/getAvgValue (param $0 i32) (result f32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 f32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  local.get $0
+  i32.store
+  loop $for-loop|0
+   local.get $0
+   i32.load offset=8
+   i32.const 2
+   i32.shr_u
+   local.get $1
+   i32.gt_s
+   if
+    local.get $0
+    i32.load offset=8
+    i32.const 2
+    i32.shr_u
+    local.get $1
+    i32.le_u
+    if
+     i32.const 1360
+     i32.const 1568
+     i32.const 730
+     i32.const 64
+     call $~lib/builtins/abort
+     unreachable
+    end
+    local.get $0
+    i32.load offset=4
+    local.get $1
+    i32.const 2
+    i32.shl
+    i32.add
+    i32.load
+    local.get $2
+    i32.add
+    local.set $2
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
+  local.get $2
+  f32.convert_i32_s
+  local.get $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+  f32.convert_i32_s
+  f32.div
   global.get $~lib/memory/__stack_pointer
   i32.const 4
   i32.add

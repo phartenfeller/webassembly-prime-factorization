@@ -2,6 +2,7 @@ let _primeFactorization;
 let _sortData;
 let _letterCount;
 let _letterCountStr;
+let _getAvgValue;
 
 let __getArray;
 let __getString;
@@ -61,6 +62,7 @@ loader
     _sortData = exports.sortData;
     _letterCount = exports.letterCount;
     _letterCountStr = exports.letterCountStr;
+    _getAvgValue = exports.getAvgValue;
 
     __getArray = exports.__getArray;
     __getString = exports.__getString;
@@ -111,4 +113,11 @@ function letterCountStrAs(str, letter) {
   return res;
 }
 
-export { primeFactorization, sortDataAs, letterCountStrAs };
+function getAvgValue(arr) {
+  const ptr1 = __pin(__newArray(___Int32ArrayId, arr));
+  const res = _getAvgValue(ptr1);
+  __unpin(ptr1);
+  return res;
+}
+
+export { primeFactorization, sortDataAs, letterCountStrAs, getAvgValue };

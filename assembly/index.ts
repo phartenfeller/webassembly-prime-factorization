@@ -84,5 +84,17 @@ export function letterCountStr(str: string): i32 {
   return count;
 }
 
+export function getAvgValue(data: Int32Array): f32 {
+  let sum: i32 = 0;
+  let avg: f32;
+
+  for (let i = 0; i < data.length; i++) {
+    sum += data[i];
+  }
+
+  avg = <f32>sum / <f32>data.length;
+  return avg;
+}
+
 export const StringArray_ID = idof<Array<string | null>>();
 export const Int32ArrayId = idof<Int32Array>();

@@ -1,5 +1,6 @@
 declare function logStr(data: string | null): void;
 declare function logInt(data: i32): void;
+declare function logAny(data: any): void;
 
 function isPrime(num: i32): bool {
   const sqrtNum = Math.sqrt(num);
@@ -30,9 +31,33 @@ export function sortData(data: string): string {
   const entries = data.split(':');
 
   const sorted = entries.sort((a, b) => {
-    logStr(a);
+    if (a == null) {
+      return 1;
+    } else if (b == null) {
+      return -1;
+    }
+
+    logStr('a => ' + a);
+    logStr('b => ' + b);
+
+    if (!a.includes('#')) {
+      return 1;
+    } else if (!b.includes('#')) {
+      return -1;
+    }
+
     const aSurname = a.split('#')[1];
     const bSurname = b.split('#')[1];
+
+    logStr('a Surname => ' + aSurname);
+    logStr('b Surname => ' + bSurname);
+
+    if (aSurname == null) {
+      return 1;
+    } else if (bSurname == null) {
+      return -1;
+    }
+
     if (aSurname < bSurname) {
       return -1;
     } else if (aSurname > bSurname) {

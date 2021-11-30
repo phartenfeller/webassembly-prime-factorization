@@ -17,10 +17,13 @@ import loader from '@assemblyscript/loader';
 const importObject = {
   index: {
     logStr(data) {
-      console.log('Log() - ' + __getString(data));
+      console.log('LogStr: ' + __getString(data));
     },
     logInt(data) {
-      console.log('Log() - ' + data);
+      console.log('LogInt: ' + data);
+    },
+    logAny(data) {
+      console.log('logAny: ' + data);
     },
   },
   env: {
@@ -79,10 +82,11 @@ const primeFactorization = (num) => {
 };
 
 const sortDataAs = (str) => {
-  const ptr1 = __newString(str);
+  const ptr1 = __pin(__newString(str));
   const ptr2 = _sortData(ptr1);
   console.log(ptr2);
   const sorted = __getString(ptr2);
+  __unpin(ptr1);
   return sorted;
 };
 

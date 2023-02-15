@@ -2,10 +2,11 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w --port 5555",
-    "start": "sirv public --no-clear --port 5555",
+    "build": "vite build",
+    "dev": "vite",
+    "start": "vite preview",
     "lint": "eslint src",
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
     "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",
@@ -16,8 +17,7 @@
     "copy-html:dev": "MODE_GH=0 node copyHtml.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "assemblyscript": "^0.19.20",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.3.0",
@@ -28,18 +28,13 @@
     "gh-pages": "^3.2.3",
     "postcss": "^8.3.11",
     "postcss-load-config": "^3.1.0",
-    "rollup": "^2.59.0",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
     "svelte": "^3.44.2",
     "svelte-preprocess": "^4.9.8",
-    "tailwindcss": "^2.2.19"
+    "tailwindcss": "^2.2.19",
+    "vite": "^4.1.1"
   },
   "dependencies": {
     "@assemblyscript/loader": "^0.19.20",
-    "replace-in-file": "^6.3.2",
-    "sirv-cli": "^1.0.14"
+    "replace-in-file": "^6.3.2"
   }
 }

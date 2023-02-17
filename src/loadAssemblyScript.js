@@ -10,6 +10,7 @@ let __newString;
 let __newArray;
 let __pin;
 let __unpin;
+let __getInt32Array;
 
 let ___StringArray_ID;
 let ___Int32ArrayId;
@@ -65,6 +66,7 @@ loader
     _getAvgValue = exports.getAvgValue;
 
     __getArray = exports.__getArray;
+    __getInt32Array = exports.__getInt32Array;
     __getString = exports.__getString;
     __newString = exports.__newString;
     __newArray = exports.__newArray;
@@ -80,7 +82,7 @@ loader
 const primeFactorization = (num) => {
   const ptr = _primeFactorization(num);
   console.log(ptr);
-  return __getArray(ptr);
+  return __getInt32Array(ptr);
 };
 
 const sortDataAs = (str) => {

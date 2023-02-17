@@ -9,7 +9,7 @@
     "start": "vite preview",
     "lint": "eslint src",
     "asbuild:untouched": "asc assembly/index.ts --target debug --exportRuntime",
-    "asbuild:optimized": "asc assembly/index.ts --target release --exportRuntime",
+    "asbuild:optimized": "asc assembly/index.ts --target release -Ospeed --exportRuntime",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "test": "node tests",
     "gh-publish": "npm run copy-html:gh && npm run build && sleep 5 && node ./gh-pages.js && sleep 5 && npm run copy-html:dev",
@@ -18,23 +18,23 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
-    "assemblyscript": "^0.19.20",
-    "autoprefixer": "^10.4.0",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-svelte3": "^3.2.1",
+    "assemblyscript": "^0.27.0",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-svelte3": "^4.0.0",
     "gh-pages": "^3.2.3",
-    "postcss": "^8.3.11",
-    "postcss-load-config": "^3.1.0",
-    "svelte": "^3.44.2",
-    "svelte-preprocess": "^4.9.8",
-    "tailwindcss": "^2.2.19",
+    "postcss": "^8.4.21",
+    "postcss-load-config": "^4.0.1",
+    "svelte": "^3.55.1",
+    "svelte-preprocess": "^5.0.1",
+    "tailwindcss": "^3.2.6",
     "vite": "^4.1.1"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.19.20",
-    "replace-in-file": "^6.3.2"
+    "@assemblyscript/loader": "^0.27.0",
+    "replace-in-file": "^6.3.5"
   }
 }
